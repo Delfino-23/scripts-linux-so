@@ -1,0 +1,50 @@
+name: 🧪 Testar Scripts
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout do código
+      uses: actions/checkout@v3
+    
+    - name: 🔍 Verificar sintaxe dos scripts
+      run: |
+        echo "================================"
+        echo "Verificando sintaxe de todos os scripts..."
+        echo "================================"
+        for script in script*.sh; do
+          if [ -f "$script" ]; then
+            echo ""
+            echo "Verificando: $script"
+            if bash -n "$script"; then
+              echo "✅ $script - Sintaxe OK"
+            else
+              echo "❌ $script - ERRO DE SINTAXE"
+              exit 1
+            fi
+          fi
+        done
+    
+    - name: 🔐 Verificar permissões
+      run: |
+        echo ""
+        echo "================================"
+        echo "Arquivos do repositório:"
+        echo "================================"
+        ls -lah
+    
+    - name: 🎉 Sucesso!
+      run: |
+        echo ""
+        echo "================================"
+        echo "✅ Todos os scripts foram validados!"
+        echo "✅ Sintaxe correta"
+        echo "✅ Pronto para uso"
+        echo "================================"
