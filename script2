@@ -1,0 +1,6 @@
+#!/bin/bash
+
+nome="Carlos"
+cidade="Mogi Mirim"
+
+echo "Olá "$nome", você mora em "$cidade
